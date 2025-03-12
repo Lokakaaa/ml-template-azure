@@ -1,10 +1,8 @@
 # Actions train a model on Azure Machine Learning
 name: aml-train-deploy-workflow
 
-on:
-  push:
-    branches:
-      - master
+on: workflow_dispatch
+  
     # paths:
     #   - 'code/*'
 
@@ -15,21 +13,24 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Check Out Repository
       id: checkout_repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
+
+    
         
     # Connect or Create the Azure Machine Learning Workspace
     - name: Connect/Create Azure Machine Learning Workspace
       id: aml_workspace
-      uses: Azure/aml-workspace@v1
+      uses: Azure/aml-workspace@v4
+
+    - name: Log in to Azure
+      uses: azure/login@v4
       with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
     
     # Connect or Create a Compute Target in Azure Machine Learning
     - name: Connect/Create Azure Machine Learning Compute Target
-      id: aml_compute_training
-      uses: Azure/aml-compute@v1
-      with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+      run: |
+      az ml compute create -n githubcluster --type amlcompute --min-instances 0 --max-instances 1
     
     # Submit a training run to the Azure Machine Learning
     - name: Submit training run
