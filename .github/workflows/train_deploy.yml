@@ -27,10 +27,9 @@ jobs:
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
-    # Connect or Create a Compute Target in Azure Machine Learning
-    - name: Connect/Create Azure Machine Learning Compute Target
+    - name: Create/Check Azure ML Compute
       run: |
-      az ml compute create -n githubcluster --type amlcompute --min-instances 0 --max-instances 1
+        az ml compute create -n githubcluster --type amlcompute --min-instances 0 --max-instances 1
     
     # Submit a training run to the Azure Machine Learning
     - name: Submit training run
