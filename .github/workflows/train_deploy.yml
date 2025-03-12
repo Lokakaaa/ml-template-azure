@@ -16,17 +16,16 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Check Out Repository
       id: checkout_repository
-      uses: actions/checkout@v4
-
+      uses: actions/checkout@main
     
         
     # Connect or Create the Azure Machine Learning Workspace
     - name: Connect/Create Azure Machine Learning Workspace
       id: aml_workspace
-      uses: Azure/aml-workspace@v4
+      uses: Azure/aml-workspace@main
 
     - name: Log in to Azure
-      uses: azure/login@v4
+      uses: azure/login@main
       with:
         creds: ${{ secrets.AZURE_CREDENTIALS }}
     
@@ -37,14 +36,14 @@ jobs:
     # Submit a training run to the Azure Machine Learning
     - name: Submit training run
       id: aml_run
-      uses: Azure/aml-run@v1
+      uses: Azure/aml-run@main
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
     # Register model in Azure Machine Learning model registry
     - name: Register model
       id: aml_registermodel
-      uses: Azure/aml-registermodel@v1
+      uses: Azure/aml-registermodel@main
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           run_id:  ${{ steps.aml_run.outputs.run_id }}
@@ -53,7 +52,7 @@ jobs:
     # Deploy model in Azure Machine Learning to ACI
     - name: Deploy model
       id: aml_deploy
-      uses: Azure/aml-deploy@v1
+      uses: Azure/aml-deploy@main
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
           model_name:  ${{ steps.aml_registermodel.outputs.model_name }}
