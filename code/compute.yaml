@@ -1,0 +1,8 @@
+$schema: https://azuremlschemas.azureedge.net/latest/amlCompute.schema.json
+name: githubcluster
+type: amlcompute  # Type of compute target (AML Compute)
+size: Standard_DS11_v2  # VM size
+min_instances: 0  # Minimum number of nodes
+max_instances: 1  # Maximum number of nodes
+idle_time_before_scale_down: 120  # Time in seconds before scaling down
+tier: dedicated  # Can be "dedicated" or "low_priority"
