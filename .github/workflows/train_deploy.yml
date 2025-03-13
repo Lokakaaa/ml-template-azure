@@ -15,7 +15,7 @@ jobs:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Check Out Repository
       id: checkout_repository
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
         
     # Connect or Create the Azure Machine Learning Workspace
     - name: Connect/Create Azure Machine Learning Workspace
@@ -24,12 +24,9 @@ jobs:
       with:
           azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
     
-    # Connect or Create a Compute Target in Azure Machine Learning
-    - name: Connect/Create Azure Machine Learning Compute Target
-      id: aml_compute_training
-      uses: Azure/aml-compute@v1
-      with:
-          azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
+    - name: Create/Check Azure ML Compute
+      run: |
+        az ml compute create -n githubcluster --type amlcompute --min-instances 0 --max-instances 1
     
     # Submit a training run to the Azure Machine Learning
     - name: Submit training run
