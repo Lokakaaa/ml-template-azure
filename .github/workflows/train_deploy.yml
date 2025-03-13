@@ -26,7 +26,7 @@ jobs:
     
     - name: Create/Check Azure ML Compute
       run: |
-        az ml compute create -n githubcluster --type amlcompute --min-instances 0 --max-instances 1
+        az ml compute create --file compute.yml --resource-group hydra-eu-rg --workspace-name hydra-eu-ws
     
     # Submit a training run to the Azure Machine Learning
     - name: Submit training run
