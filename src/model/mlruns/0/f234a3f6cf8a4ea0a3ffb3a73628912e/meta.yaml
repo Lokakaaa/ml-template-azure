@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Carolyn%27s%20workspace/Azuremlops/src/model/mlruns/0/f234a3f6cf8a4ea0a3ffb3a73628912e/artifacts
+end_time: 1740599796055
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: f234a3f6cf8a4ea0a3ffb3a73628912e
+run_name: charming-vole-589
+run_uuid: f234a3f6cf8a4ea0a3ffb3a73628912e
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740599789179
+status: 3
+tags: []
+user_id: CarolynChen

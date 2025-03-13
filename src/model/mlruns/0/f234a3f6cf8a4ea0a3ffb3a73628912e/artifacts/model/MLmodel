@@ -1,0 +1,32 @@
+artifact_path: model
+flavors:
+  python_function:
+    env:
+      conda: conda.yaml
+      virtualenv: python_env.yaml
+    loader_module: mlflow.sklearn
+    model_path: model.pkl
+    predict_fn: predict
+    python_version: 3.12.4
+  sklearn:
+    code: null
+    pickled_model: model.pkl
+    serialization_format: cloudpickle
+    sklearn_version: 1.4.2
+is_signature_from_type_hint: false
+mlflow_version: 2.20.2
+model_size_bytes: 1003
+model_uuid: 967607c3b1314e1f8bb1d68eddc5f1dc
+run_id: f234a3f6cf8a4ea0a3ffb3a73628912e
+signature:
+  inputs: '[{"type": "long", "name": "PatientID", "required": true}, {"type": "long",
+    "name": "Pregnancies", "required": true}, {"type": "long", "name": "PlasmaGlucose",
+    "required": true}, {"type": "long", "name": "DiastolicBloodPressure", "required":
+    true}, {"type": "long", "name": "TricepsThickness", "required": true}, {"type":
+    "long", "name": "SerumInsulin", "required": true}, {"type": "double", "name":
+    "BMI", "required": true}, {"type": "double", "name": "DiabetesPedigree", "required":
+    true}, {"type": "long", "name": "Age", "required": true}]'
+  outputs: '[{"type": "tensor", "tensor-spec": {"dtype": "int64", "shape": [-1]}}]'
+  params: null
+type_hint_from_example: false
+utc_time_created: '2025-02-26 19:56:30.194501'

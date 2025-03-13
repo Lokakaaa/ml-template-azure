@@ -1,0 +1,15 @@
+artifact_uri: file:///C:/Carolyn%27s%20workspace/Azuremlops/src/model/mlruns/0/796654608d284f9b817beae2b1d0647d/artifacts
+end_time: 1740595734820
+entry_point_name: ''
+experiment_id: '0'
+lifecycle_stage: active
+run_id: 796654608d284f9b817beae2b1d0647d
+run_name: tasteful-finch-740
+run_uuid: 796654608d284f9b817beae2b1d0647d
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1740595727414
+status: 3
+tags: []
+user_id: CarolynChen

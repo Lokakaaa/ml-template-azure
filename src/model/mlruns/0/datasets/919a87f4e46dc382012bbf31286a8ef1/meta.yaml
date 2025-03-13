@@ -1,0 +1,13 @@
+digest: 52baa37d
+name: dataset
+profile: '{"num_rows": 4000, "num_elements": 36000}'
+schema: '{"mlflow_colspec": [{"type": "long", "name": "PatientID", "required": true},
+  {"type": "long", "name": "Pregnancies", "required": true}, {"type": "long", "name":
+  "PlasmaGlucose", "required": true}, {"type": "long", "name": "DiastolicBloodPressure",
+  "required": true}, {"type": "long", "name": "TricepsThickness", "required": true},
+  {"type": "long", "name": "SerumInsulin", "required": true}, {"type": "double", "name":
+  "BMI", "required": true}, {"type": "double", "name": "DiabetesPedigree", "required":
+  true}, {"type": "long", "name": "Age", "required": true}]}'
+source: '{"tags": {"mlflow.user": "CarolynChen", "mlflow.source.name": "train.py",
+  "mlflow.source.type": "LOCAL", "mlflow.source.git.commit": "66c35ee7785763cb55420cd8bde697b3cb03519d"}}'
+source_type: code
