@@ -17,7 +17,11 @@ jobs:
     - name: Check Out Repository
       id: checkout_repository
       uses: actions/checkout@v4
-    
+      
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
         
     # Connect or Create the Azure Machine Learning Workspace
     - name: Connect/Create Azure Machine Learning Workspace
