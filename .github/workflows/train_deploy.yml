@@ -60,8 +60,8 @@ jobs:
        
     - name: Register the model
       run: |
-         az ml model create --name my-registered-model --path azureml://jobs/${{ env.run_id }}/outputs/ --type mlflow_model
-         
+         az ml model create --name my-registered-model --version 1 --path https://hydraeustorageaccount.blob.core.windows.net/azureml/ExperimentRun/dcid.magenta_roof_390fsf0qvz/outputs/model.pkl --type mlflow_model
+    
     # # Register model in Azure Machine Learning model registry
    
     - name: Register the model 1
