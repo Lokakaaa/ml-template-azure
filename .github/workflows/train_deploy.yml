@@ -20,10 +20,17 @@ jobs:
     - name: Install Azure CLI and ML extension
       run: |
         az extension add -n ml -y
+
+    - name: Verify Available Subscriptions
+      run: |
+        az account list --output table
+
+    - name: Set Subscription
+      run: |
+        az account set --subscription $(echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r .subscriptionId)
     
     - name: Connect Azure Machine Learning Workspace
       run: |
-        az account set --subscription 6ebf1b40-0cf8-41ef-b8b9-19fbd5aa1ace
         az configure --defaults workspace=hydra-eu-ws group=hydra-eu-rg location=eastus2
     
     - name: Azure login
