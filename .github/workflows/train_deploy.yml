@@ -62,7 +62,7 @@ jobs:
     - name: Register the model
       run: |
          az ml job show --name tidy_yak_41zykvblzs --resource-group hydra-eu-rg --workspace-name hydra-eu-ws --query "outputs" -o json
-         az ml model create --name my-registered-model --version 1 --path runs:/${{ env.run_id }}/outputs/model/ --type mlflow_model
+         az ml model create --name my-registered-model --version 1 --path azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.${{ env.run_id }} --type mlflow_model
          
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
