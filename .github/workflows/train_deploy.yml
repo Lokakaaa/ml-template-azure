@@ -53,8 +53,8 @@ jobs:
 
     - name: Register the model
       run: |
-        az ml model create -n model-example -v 1 -p runs:/$run_id/model --type mlflow_model --resource-group hydra-eu-rg --workspace-name hydra-eu-ws
-  
+         az ml job show --name $run_id --resource-group hydra-eu-rg --workspace-name hydra-eu-ws --query "outputs"
+
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
     #   id: aml_registermodel
