@@ -34,21 +34,15 @@ jobs:
     #       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
 
     
-    - name: Verify Available Subscriptions
-      run: |
-        az account list --output table
-
-    - name: Set Subscription
+    # This step has to happen after logging in and the AzureCloud is set up, with this step, there's no need to specify ws and rg for every CLI command
+    - name: Set Subscription and connect to workspace
       run: |
         az account set --subscription $(echo '${{ secrets.AZURE_CREDENTIALS }}' | jq -r .subscriptionId)
-    
-    - name: Connect Azure Machine Learning Workspace
-      run: |
         az configure --defaults workspace=hydra-eu-ws group=hydra-eu-rg location=eastus2
         
     - name: Create/Check Azure ML Compute
       run: |
-        az ml compute create --file code/compute.yml --resource-group hydra-eu-rg --workspace-name hydra-eu-ws
+        az ml compute create --file code/compute.yml
     
     # # Submit a training run to the Azure Machine Learning
     # - name: Submit training run
@@ -60,13 +54,12 @@ jobs:
     - name: Submit Azure ML Job
       run: |
         run_id=$(az ml job create --file src/job.yml \
-          --resource-group hydra-eu-rg \
-          --workspace-name hydra-eu-ws \
           --query name -o tsv)
-
+        echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
+   
     - name: Register the model
       run: |
-         az ml model create --name my-registered-model --version 1 --path runs:/$run_id/output/model/ --type mlflow_model
+         az ml model create --name my-registered-model --version 1 --path runs:/${{ env.run_id }}/output/model/ --type mlflow_model
          
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
