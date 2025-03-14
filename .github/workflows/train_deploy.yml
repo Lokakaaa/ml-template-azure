@@ -58,16 +58,18 @@ jobs:
         echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
 
        
-    - name: Register the model
-      run: |
-         az ml model create --name my-registered-model --version 1 --path https://hydraeustorageaccount.blob.core.windows.net/azureml/ExperimentRun/dcid.magenta_roof_390fsf0qvz/outputs/ --type mlflow_model
+    # - name: Register the model
+    #   run: |
+    #      az ml model create --name my-registered-model --version 1 --path https://hydraeustorageaccount.blob.core.windows.net/azureml/ExperimentRun/dcid.magenta_roof_390fsf0qvz/outputs/ --type mlflow_model
     
     # # Register model in Azure Machine Learning model registry
    
     - name: Register the model 1
       run: |
-         az ml model create --name my-registered-model --version 1 --path https://hydraeustorageaccount.blob.core.windows.net/azureml/ExperimentRun/dcid.${{ env.run_id }}/outputs/ --type mlflow_model
-         
+         az ml model create --name my-registered-model --type mlflow_model \
+         --path "azureml://datastores/workspaceblobstore/paths/model/" \
+         --version 1
+
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
     #   id: aml_registermodel
