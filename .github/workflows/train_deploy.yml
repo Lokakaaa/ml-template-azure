@@ -49,7 +49,7 @@ jobs:
         run_id=$(az ml job create --file src/job.yml \
           --resource-group hydra-eu-rg \
           --workspace-name hydra-eu-ws \
-          --query name -o tsv
+          --query name -o tsv)
 
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
