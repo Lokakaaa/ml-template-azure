@@ -20,7 +20,12 @@ jobs:
     - name: Install Azure CLI and ML extension
       run: |
         az extension add -n ml -y
-
+    
+    - name: Connect Azure Machine Learning Workspace
+      run: |
+        az account set --subscription 6ebf1b40-0cf8-41ef-b8b9-19fbd5aa1ace
+        az configure --defaults workspace=hydra-eu-ws group=hydra-eu-rg location=eastus2
+    
     - name: Azure login
       uses: azure/login@v1
       with:
