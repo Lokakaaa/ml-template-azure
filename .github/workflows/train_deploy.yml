@@ -60,7 +60,7 @@ jobs:
        
     - name: Register the model
       run: |
-         az ml model create --name $MODEL_NAME --path azureml://jobs/$RUN_ID/outputs/artifacts/$MODEL_PATH
+         az ml model create --name my-registered-model --path azureml://jobs/${{ env.run_id }/outputs/
    
     - name: Register the model 1
       run: |
