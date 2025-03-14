@@ -53,7 +53,7 @@ jobs:
 
     - name: Register the model
       run: |
-         az ml model create --name my-registered-model --version 1 --path runs:/$run_id/model/ --type mlflow_model
+         az ml model create --name my-registered-model --version 1 --path runs:/$run_id/output/model/ --type mlflow_model
          
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
