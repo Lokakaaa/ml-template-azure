@@ -17,6 +17,10 @@ jobs:
       id: checkout_repository
       uses: actions/checkout@v4
 
+    - name: Install Azure CLI and ML extension
+      run: |
+        az extension add -n ml -y
+
     - name: Azure login
       uses: azure/login@v1
       with:
