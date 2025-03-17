@@ -45,13 +45,7 @@ jobs:
        
     - name: Register the model in Azure ML
       run: |
-        model_path=$(az ml job show --name ${{ env.run_id }} --query 'outputs[0].artifactUri' -o tsv)
-        echo "Model path: $model_path"
-
-        az ml model register \
-        --name registered-model \
-        --path $model_path
-
+        az ml model create --name sklearn-diabetes --type "mlflow_model" --path "model" --run-id $run_id
         
       # # Register model in Azure Machine Learning model registry
    
