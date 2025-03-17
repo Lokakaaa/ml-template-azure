@@ -7,7 +7,7 @@ compute: azureml:githubcluster
 experiment_name: "MLOpsExperiment"
 description: "MLOpsexperiment"
 # include an output to track artifacts
-outputs:
-  model:
-    type: uri_folder
-    path: azureml://datastores/workspaceblobstore/paths/model/
+# outputs:
+#   model:
+#     type: uri_folder
+#     path: azureml://datastores/workspaceblobstore/paths/model/
