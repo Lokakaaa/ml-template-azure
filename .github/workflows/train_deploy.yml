@@ -52,7 +52,7 @@ jobs:
     - name: Register the model 1
       run: |
          az ml model create --name my-registered-model --type mlflow_model \
-         --path "azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.maroon_puppy_yw8xnkf1xl" \
+         --path "azureml://datastores/workspaceartifactstore/ExperimentRun/dcid.maroon_puppy_yw8xnkf1xl/" \
          --version 1
 
     # # Register model in Azure Machine Learning model registry
