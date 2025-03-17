@@ -52,7 +52,7 @@ jobs:
     - name: Register the model 1
       run: |
          az ml model create --name my-registered-model --type mlflow_model \
-         --path "azureml:azureml_plucky_kiwi_dzrn8qzmbh_output_data_model:1" \
+         --path "azureml://datastores/workspaceblobstore/paths/model/" \
          --version 1
 
     # # Register model in Azure Machine Learning model registry
