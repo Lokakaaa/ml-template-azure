@@ -11,6 +11,8 @@ on:
 jobs:
   Train:
     runs-on: ubuntu-latest
+    outputs:
+      run_id: ${{ steps.get_run_id.outputs.run_id }}
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
     - name: Check Out Repository
@@ -37,15 +39,17 @@ jobs:
         az ml compute create --file code/compute.yml
   
     - name: Submit Azure ML Job
+      id: get_run_id  # Assign id so the output can reference this step
       run: |
         run_id=$(az ml job create --file src/job.yml \
           --query name -o tsv)
         echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
+        echo "run_id=$run_id" >> $GITHUB_OUTPUT  # Pass to next job via outputs
 
   # Register model in Azure Machine Learning model registry
   Deploy:
     runs-on: ubuntu-latest
-    needs: Train
+    needs: Train  # Set the dependent job so register happens after the training job is completed
     steps:
     - name: Azure login
       uses: azure/login@v1
@@ -61,7 +65,7 @@ jobs:
     - name: Register the model
       run: |
         az ml model create --name my-registered-model --type mlflow_model \
-          --path runs:/${{ env.run_id }}/model/
+          --path runs:/${{ needs.Train.outputs.run_id }}/model/    # 
 
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
