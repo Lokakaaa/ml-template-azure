@@ -61,7 +61,6 @@ def main(args):
         
         joblib.dump(svm_model, os.path.join('outputs', 'model.pkl'))
         mlflow.log_artifact(os.path.join('outputs', 'model.pkl'))
-        mlflow.sklearn.log_model(svm_model, "model")
 
 def parse_args():
     parser = argparse.ArgumentParser()
