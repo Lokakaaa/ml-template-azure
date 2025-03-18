@@ -53,20 +53,6 @@ jobs:
         az ml model create --name my-registered-model --type mlflow_model \
           --path runs:/${{ env.run_id }}/model/    
 
-    # # Register model in Azure Machine Learning model registry
-    # - name: Register model
-    #   id: aml_registermodel
-    #   uses: Azure/aml-registermodel@v1
-    #   with:
-    #       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-    #       run_id:  ${{ steps.aml_run.outputs.run_id }}
-    #       experiment_name: ${{ steps.aml_run.outputs.experiment_name }}
-
-    # # Deploy model in Azure Machine Learning to ACI
-    # - name: Deploy model
-    #   id: aml_deploy
-    #   uses: Azure/aml-deploy@v1
-    #   with:
-    #       azure_credentials: ${{ secrets.AZURE_CREDENTIALS }}
-    #       model_name:  ${{ steps.aml_registermodel.outputs.model_name }}
-    #       model_version: ${{ steps.aml_registermodel.outputs.model_version }}
+    - name: Deploy model
+      run: |
+        az ml online-endpoint create --name my-endpoint -f src/create-endpoint.yml
