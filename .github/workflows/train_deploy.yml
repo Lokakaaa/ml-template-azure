@@ -39,8 +39,13 @@ jobs:
     - name: Submit Azure ML Job
       id: get_run_id  # Assign id so the output can reference this step
       run: |
-        run_id=$(az ml job create --file src/job.yml --stream --query name -o tsv)
+        run_id=$(az ml job create --file src/job.yml --query name -o tsv)
         echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
+
+    
+    - name: Wait for Job Completion and Stream Logs
+      run: |
+        az ml job stream --name ${{ env.run_id }}  # Stream the logs in real-time
         
     - name: Register the model
       run: |
