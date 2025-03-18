@@ -9,7 +9,7 @@ on:
     #   - 'code/*'
 
 jobs:
-  Step_up:
+  Train:
     runs-on: ubuntu-latest
     steps:
     # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
@@ -36,10 +36,6 @@ jobs:
       run: |
         az ml compute create --file code/compute.yml
   
-  Train_model:
-    runs-on: ubuntu-latest
-    needs: Step_up
-    steps:
     - name: Submit Azure ML Job
       run: |
         run_id=$(az ml job create --file src/job.yml \
@@ -47,9 +43,9 @@ jobs:
         echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
 
   # Register model in Azure Machine Learning model registry
-  Register_model:
+  Deploy:
     runs-on: ubuntu-latest
-    needs: Train_model
+    needs: Train
     steps:
     - name: Register the model
       run: |
