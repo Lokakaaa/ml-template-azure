@@ -42,21 +42,21 @@ jobs:
           --query name -o tsv)
         echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
 
-    - name: Register the model in Azure ML
-      run: |
-        MODEL_PATH=$(az ml job show --name maroon_puppy_yw8xnkf1xl --query "outputs.model.path" -o tsv)
-        echo "MODEL_PATH=$MODEL_PATH" >> $GITHUB_ENV  # Store model path as environment variable
+    # - name: Register the model in Azure ML
+    #   run: |
+    #     MODEL_PATH=$(az ml job show --name maroon_puppy_yw8xnkf1xl --query "outputs.model.path" -o tsv)
+    #     echo "MODEL_PATH=$MODEL_PATH" >> $GITHUB_ENV  # Store model path as environment variable
 
-        az ml model create \
-          --name registered-model \
-          --path $MODEL_PATH
+    #     az ml model create \
+    #       --name registered-model \
+    #       --path $MODEL_PATH
 
     # Register model in Azure Machine Learning model registry
    
-    # - name: Register the model 1
-    #   run: |
-    #      az ml model create --name my-registered-model --type mlflow_model \
-    #      --path https://hydraeustorageaccount.blob.core.windows.net/azureml/ExperimentRun/dcid.maroon_puppy_yw8xnkf1xl/model/ 
+    - name: Register the model 1
+      run: |
+         az ml model create --name my-registered-model --type mlflow_model
+         --path runs:/env.run_id/model/
 
     # # Register model in Azure Machine Learning model registry
     # - name: Register model
