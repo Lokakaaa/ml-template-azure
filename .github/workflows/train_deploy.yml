@@ -5,8 +5,9 @@ on:
   push:
     branches:
       - dev-branch
-    # paths:
-    #   - 'code/*'
+    paths:
+      - 'code/*'
+      - '.github/workflows/*'
 
 jobs:
   Train:
