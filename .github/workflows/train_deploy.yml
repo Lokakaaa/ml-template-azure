@@ -39,7 +39,7 @@ jobs:
     - name: Submit Azure ML Job
       run: |
         run_id=$(az ml job create --file src/job.yml \
-          --query name -o tsv)
+          --query id -o tsv)
         echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
 
     # - name: Register the model in Azure ML
