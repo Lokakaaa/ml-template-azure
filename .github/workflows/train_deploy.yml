@@ -53,9 +53,14 @@ jobs:
     #     az ml model create --name my-registered-model --type mlflow_model \
     #       --path runs:/${{ env.run_id }}/model/    
 
-    - name: Deploy model
+    - name: Deploy model list
       run: |
         az ml online-endpoint list --output table
+        
+    - name: Deploy model
+      run: |
+        az ml online-endpoint create --name mlops-endpoint-03201945 -f src/create-endpoint.yml
+
 
     - name: Deploy model
       run: |
