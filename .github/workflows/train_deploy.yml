@@ -37,40 +37,26 @@ jobs:
       run: |
         az ml compute create --file code/compute.yml
 
-    - name: Submit Azure ML Job
-      id: get_run_id  # Assign id so the output can reference this step
-      run: |
-        run_id=$(az ml job create --file src/job.yml --query name -o tsv)
-        echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
+    # - name: Submit Azure ML Job
+    #   id: get_run_id  # Assign id so the output can reference this step
+    #   run: |
+    #     run_id=$(az ml job create --file src/job.yml --query name -o tsv)
+    #     echo "run_id=$run_id" >> $GITHUB_ENV # Persist the run_id as a GitHub Actions environment variable
     
-    - name: Wait for Job Completion and Stream Logs
-      run: |
-        az ml job stream --name ${{ env.run_id }}  # Stream the logs in real-time
+    # - name: Wait for Job Completion and Stream Logs
+    #   run: |
+    #     az ml job stream --name ${{ env.run_id }}  # Stream the logs in real-time
 
-    - name: Register the model
-      run: |
-        az ml model create --name my-registered-model --type mlflow_model \
-          --path runs:/${{ env.run_id }}/model/    
+    # - name: Register the model
+    #   run: |
+    #     az ml model create --name my-registered-model --type mlflow_model \
+    #       --path runs:/${{ env.run_id }}/model/    
 
-    - name: Get Latest Model Version
+    - name: Create Endpoint
       run: |
-        MODEL_NAME=$(az ml model list --query "[0].name" -o tsv)
-        MODEL_VERSION=$(az ml model list --query "[0].version" -o tsv)
-        echo "MODEL_NAME=$MODEL_NAME" >> $GITHUB_ENV
-        echo "MODEL_VERSION=$MODEL_VERSION" >> $GITHUB_ENV
+        export ENDPOINT_NAME="mlops-endpoint-test"
+        az ml online-endpoint create --name $ENDPOINT_NAME -f src/create-endpoint.yaml
 
     - name: Deploy Model
       run: |
-        cat <<EOF > deployment.yaml
-        $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
-        name: my-mlops-deployment
-        endpoint_name: my-mlops-endpoint
-        model:
-          name: $MODEL_NAME
-          version: $MODEL_VERSION
-          type: mlflow_model
-        instance_type: Standard_DS3_v2
-        instance_count: 1
-        EOF
-
-        az ml online-deployment create --name my-mlops-deployment --endpoint my-mlops-endpoint -f deployment.yaml --all-traffic
+        az ml online-deployment create --name sklearn-deployment --endpoint $ENDPOINT_NAME -f src/sklearn-deployment.yaml --all-traffic
