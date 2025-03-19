@@ -55,4 +55,4 @@ jobs:
 
     - name: Deploy model
       run: |
-        az ml online-endpoint create --name my-endpoint -f src/create-endpoint.yml
+        az ml online-endpoint create --name mlops-endpoint -f src/create-endpoint.yml
