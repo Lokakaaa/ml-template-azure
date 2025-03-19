@@ -54,14 +54,23 @@ jobs:
 
     - name: Get Latest Model Version
       run: |
-        MODEL_NAME="my-registered-model"
-        LATEST_MODEL_VERSION=$(az ml model list --name $MODEL_NAME --query "[0].version" -o tsv)
-        echo "LATEST_MODEL_VERSION=$LATEST_MODEL_VERSION" >> $GITHUB_ENV
+        MODEL_NAME=$(az ml model list --query "[0].name" -o tsv)
+        MODEL_VERSION=$(az ml model list --query "[0].version" -o tsv)
+        echo "MODEL_NAME=$MODEL_NAME" >> $GITHUB_ENV
+        echo "MODEL_VERSION=$MODEL_VERSION" >> $GITHUB_ENV
 
-    - name: Deploy Model Directly
+    - name: Deploy Model
       run: |
-        ENDPOINT_NAME="mlops-endpoint-$(date +%Y%m%d%H%M%S)"
-        az ml online-deployment create --name $ENDPOINT_NAME \
-          --model my-registered-model:$LATEST_MODEL_VERSION \
-          --instance-type Standard_DS3_v2 \
-          --instance-count 1
+        cat <<EOF > deployment.yaml
+        $schema: https://azuremlschemas.azureedge.net/latest/managedOnlineDeployment.schema.json
+        name: my-mlops-deployment
+        endpoint_name: my-mlops-endpoint
+        model:
+          name: $MODEL_NAME
+          version: $MODEL_VERSION
+          type: mlflow_model
+        instance_type: Standard_DS3_v2
+        instance_count: 1
+        EOF
+
+        az ml online-deployment create --name my-mlops-deployment --endpoint my-mlops-endpoint -f deployment.yaml --all-traffic
