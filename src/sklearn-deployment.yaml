@@ -4,7 +4,7 @@ endpoint_name: my-mlops-endpoint
 model:
   name: my-registered-model
   version: 10
-  path: ./model
+  path: runs:/lucid_longan_d6cqzd30pj/model/  
   type: mlflow_model
 instance_type: Standard_DS3_v2
 instance_count: 1
