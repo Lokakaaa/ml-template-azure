@@ -52,13 +52,12 @@ jobs:
     #     az ml model create --name my-registered-model --type mlflow_model \
     #       --path runs:/${{ env.run_id }}/model/    
 
-    # - name: Create Endpoint
-    #   run: |
-    #     export ENDPOINT_NAME="mlops-endpoint-test"
-    #     az ml online-endpoint create --name $ENDPOINT_NAME -f src/create-endpoint.yaml
-
-    # az ml online-deployment create --name sklearn-deployment --endpoint $ENDPOINT_NAME -f src/sklearn-deployment.yaml --all-traffic
-
+    - name: Create Endpoint
+      run: |
+        export ENDPOINT_NAME="mlops-endpoint-test"
+        az ml online-endpoint create --name $ENDPOINT_NAME -f src/create-endpoint.yaml
+        
     - name: Deploy Model
       run: |
-        az ml model show --name my-registered-model --version 10 --query "path"
+        az ml online-deployment create --name sklearn-deployment --endpoint $ENDPOINT_NAME -f src/sklearn-deployment.yaml --all-traffic
+
