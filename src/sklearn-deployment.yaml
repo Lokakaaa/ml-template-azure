@@ -3,7 +3,7 @@ name: sklearn-deployment
 endpoint_name: hydra-mlops-endpoint
 model:
   name: my-registered-model
-  version: 9
+  version: 10
   type: mlflow_model
 instance_type: Standard_DS3_v2
 instance_count: 1
