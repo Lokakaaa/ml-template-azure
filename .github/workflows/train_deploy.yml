@@ -6,7 +6,7 @@ on:
     branches:
       - dev-branch
     paths:
-      - 'code/*'
+      - 'src/*'
       - '.github/workflows/*'
 
 jobs:
