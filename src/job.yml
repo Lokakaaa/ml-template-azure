@@ -6,7 +6,7 @@ environment: azureml:AzureML-sklearn-0.24-ubuntu18.04-py37-cpu@latest
 compute: azureml:githubcluster
 experiment_name: "MLOpsExperiment"
 description: "MLOpsexperiment"
-# include an output to track artifacts
+# include an output to track artifacts, without it the run:/${{run_id}}/model/ artifact cannot be retrieved
 outputs:
   model:
     type: uri_folder
