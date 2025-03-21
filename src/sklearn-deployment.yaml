@@ -4,6 +4,7 @@ endpoint_name: hydra-mlops-endpoint
 model:
   name: my-registered-model
   version: 10
+  path: azureml://subscriptions/6ebf1b40-0cf8-41ef-b8b9-19fbd5aa1ace/resourceGroups/hydra-eu-rg/workspaces/hydra-eu-ws/datastores/workspaceartifactstore/paths/ExperimentRun/dcid.lucid_longan_d6cqzd30pj/model
   type: mlflow_model
 instance_type: Standard_DS3_v2
 instance_count: 1
