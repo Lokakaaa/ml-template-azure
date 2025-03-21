@@ -56,7 +56,12 @@ jobs:
       run: |
         export ENDPOINT_NAME="hydra-mlops-endpoint"
         az ml online-endpoint update --name $ENDPOINT_NAME -f src/create-endpoint.yaml
-        
+
+    - name: Deploy Model show
+      run: |
+        echo "Model specified for deployment:" 
+        yq '.model.name + " (version: " + (.model.version|tostring) + ")"' src/sklearn-deployment.yaml
+
     - name: Deploy Model
       run: |
         az ml online-deployment create -f src/sklearn-deployment.yaml
